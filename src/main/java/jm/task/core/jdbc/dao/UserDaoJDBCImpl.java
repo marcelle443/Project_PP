@@ -17,7 +17,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
             statement.executeUpdate(sql);
             System.out.println("Таблица пользователей создана!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 
@@ -28,7 +28,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
             statement.executeUpdate(sql);
             System.out.println("Таблица пользователей удалена!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 
@@ -42,7 +42,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
             preparedStatement.executeUpdate();
             System.out.printf("User с именем — %s добавлен в базу данных%n", name);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 
@@ -54,7 +54,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
             preparedStatement.executeUpdate();
             System.out.printf("User с id = %d удалён из базы данных%n", id);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 
@@ -73,7 +73,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
                 users.add(user);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
         return users;
     }
@@ -85,7 +85,7 @@ public class UserDaoJDBCImpl implements UserDao { // мой коммент * р�
             statement.executeUpdate(sql);
             System.out.println("Таблица пользователей очищена!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
     }
 }

@@ -19,7 +19,7 @@ public class Util { //мой коммент * класс Util - создаёт �
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             //System.out.println("Соединение установлено!");
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
             System.out.println("Ошибка соединения!");
         }
         return connection;
