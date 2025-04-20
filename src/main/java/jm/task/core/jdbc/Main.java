@@ -16,22 +16,20 @@ public class Main { //мой коммент * точка входа в прог�
 
         userService.createUsersTable();
 
-        userService.saveUser("Peter", "Parker", (byte)25);
-        userService.saveUser("Mary", "Jane", (byte)24);
-        userService.saveUser("Harry", "Osborn", (byte)26);
-        userService.saveUser("Norman", "Osborn", (byte)42);
+        userService.saveUser("Peter", "Parker", (byte) 25);
+        userService.saveUser("Mary", "Jane", (byte) 24);
+        userService.saveUser("Harry", "Osborn", (byte) 26);
+        userService.saveUser("Norman", "Osborn", (byte) 42);
 
         List<User> users = userService.getAllUsers();
-        for(User user : users) {
+        for (User user : users) {
             System.out.println(user);
         }
 
-            userService.cleanUsersTable();
+        userService.cleanUsersTable();
 
 
-            userService.dropUsersTable();
-
-
+        userService.dropUsersTable();
 
 
     }
