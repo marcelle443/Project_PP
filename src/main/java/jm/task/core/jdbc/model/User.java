@@ -21,14 +21,14 @@ public class User { //мой коммент * User - это модель,  Java 
     @Column
     private Byte age;
 
-    public User() {
-
-    }
-
-    public User(String name, String lastName, Byte age) {
+    public User(String name, String lastName, int age) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.age = (byte) age;
+    }
+
+    public User() {
+
     }
 
 

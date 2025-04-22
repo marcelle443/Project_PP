@@ -24,20 +24,46 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = Util.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.createNativeQuery(sql).executeUpdate();
+        System.out.println("Таблица пользователей создана!");
         transaction.commit();
         session.close();// комитим и подтврежданм транзакцию
-        System.out.println("Успешно!");
+        System.out.println("сессия успешно закрыта!");
     }
 
     @Override
     public void dropUsersTable() {
+        String sql = "DROP TABLE IF EXISTS user";
+        Session session = Util.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.createNativeQuery(sql).executeUpdate();
+        System.out.println("Таблица полностью удалена!");
+        transaction.commit();
+        session.close();// комитим и подтврежданм транзакцию
+        System.out.println("Сессия успешно закрыта!");
 
     }
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
+        Session session = Util.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
 
+        transaction = session.beginTransaction();
+        User user = new User(name, lastName, age);
+        session.save(user);
+        transaction.commit();
+        System.out.println("Пользователь добавлен в таблицу!");
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+            System.out.println("Сессия успешно закрыта!");
+        }
     }
+
+
 
     @Override
     public void removeUserById(long id) {
