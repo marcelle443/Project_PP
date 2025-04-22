@@ -3,13 +3,11 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.hibernate.Transaction;
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class UserDaoHibernateImpl implements UserDao {
         System.out.printf("Пользователь с именем — %s добавлен в базу данных%n", name);
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         } finally {
             session.close();
             System.out.println("Сессия успешно закрыта!");
