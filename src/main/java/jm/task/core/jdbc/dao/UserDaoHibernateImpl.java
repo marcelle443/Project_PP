@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -53,7 +54,7 @@ public class UserDaoHibernateImpl implements UserDao {
         User user = new User(name, lastName, age);
         session.save(user);
         transaction.commit();
-        System.out.println("Пользователь добавлен в таблицу!");
+        System.out.printf("Пользователь с именем — %s добавлен в базу данных%n", name);
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
@@ -63,20 +64,49 @@ public class UserDaoHibernateImpl implements UserDao {
         }
     }
 
-
-
     @Override
     public void removeUserById(long id) {
+        Session session = Util.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
 
+            transaction = session.beginTransaction();
+            User user = session.get(User.class, id);
+            session.delete(user);
+            transaction.commit();
+            System.out.printf("Пользователь с id — %s удален из базы данных%n", id);
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace(System.out);
+        } finally {
+            session.close();
+            System.out.println("Сессия успешно закрыта!");
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        List<User> userList = new ArrayList<>();
+        try (Session session = Util.getSessionFactory().openSession()) {
+            userList = session.createQuery("FROM User", User.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+
+        return userList;
     }
 
     @Override
     public void cleanUsersTable() {
-
+        String sql = "DELETE FROM user";
+        Session session = Util.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.createNativeQuery(sql).executeUpdate();
+        System.out.println("Пользователи из таблицы удалены!");
+        transaction.commit();
+        session.close();// комитим и подтврежданм транзакцию
+        System.out.println("сессия успешно закрыта!");
+        }
     }
-}
+
+

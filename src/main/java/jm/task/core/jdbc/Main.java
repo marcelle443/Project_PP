@@ -21,15 +21,20 @@ public class Main { //мой коммент * точка входа в прог�
         userService.saveUser("Mary", "Jane", (byte) 24);
         userService.saveUser("Harry", "Osborn", (byte) 26);
         userService.saveUser("Norman", "Osborn", (byte) 42);
+
         List<User> users = userService.getAllUsers();
-        for (User user : users) {
-            System.out.println(user);
-        }
 
-        //userService.cleanUsersTable();
+        if (users != null) {
+            for (User user : users) System.out.println(user);
+        } else {
+               System.out.println("Список пользователей пуст или не существует");
+            }
+        userService.removeUserById(1); // работает, но нужно знать id
+
+        userService.cleanUsersTable();
 
 
-        //userService.dropUsersTable();
+        userService.dropUsersTable();
 
 
     }
